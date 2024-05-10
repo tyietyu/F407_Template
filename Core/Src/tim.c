@@ -211,4 +211,12 @@ void Delay_us(uint32_t us)
     }
     HAL_TIM_Base_Stop(&htim2);
 }
+
+void Delay_ms(uint32_t ms)
+{
+    while(ms--)
+    {
+        Delay_us(1000);
+    }
+}
 /* USER CODE END 1 */
