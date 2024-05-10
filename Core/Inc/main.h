@@ -31,13 +31,18 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdarg.h>
+#include <stdint.h>
 #include "HC_SR04.h"
 #include "usDelay.h"
 #include "wifi.h"
 #include "gpio.h"
 #include "usart.h"
+#include "OLED.h"
+#include "OLED_Data.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -79,6 +84,10 @@ void Error_Handler(void);
 #define ECHO_GPIO_Port GPIOD
 #define SD_CARD_DET_Pin GPIO_PIN_3
 #define SD_CARD_DET_GPIO_Port GPIOD
+#define SCL_Pin GPIO_PIN_6
+#define SCL_GPIO_Port GPIOB
+#define SDA_Pin GPIO_PIN_7
+#define SDA_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
