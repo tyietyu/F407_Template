@@ -82,6 +82,8 @@ void Error_Handler(void);
 #define LED0_GPIO_Port GPIOB
 #define ECHO_Pin GPIO_PIN_12
 #define ECHO_GPIO_Port GPIOD
+#define PWM_DUOJI_Pin GPIO_PIN_6
+#define PWM_DUOJI_GPIO_Port GPIOC
 #define SD_CARD_DET_Pin GPIO_PIN_3
 #define SD_CARD_DET_GPIO_Port GPIOD
 #define SCL_Pin GPIO_PIN_6

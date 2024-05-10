@@ -291,10 +291,29 @@ void esp8266Task(void *argument)
 void keyTask(void *argument)
 {
   /* USER CODE BEGIN keyTask */
+  uint16_t key;
+  uint16_t keyVal;
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    if(HAL_GPIO_ReadPin(KEY0_GPIO_Port,KEY0_Pin)==GPIO_PIN_RESET)
+    {
+        keyVal++;
+    }
+    switch (keyVal)
+    {
+    case 0:
+    //运行LED任务
+    osThreadResume(LEDTaskHandle);
+    case 1:
+    //删除LED任务
+    osThreadSuspend(LEDTaskHandle);
+    case 2:
+      break;
+    
+    default:
+      break;
+    }
   }
   /* USER CODE END keyTask */
 }
