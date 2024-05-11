@@ -1,5 +1,6 @@
 #include "duoji.h"
 
+extern TIM_HandleTypeDef htim3;
 void DUOJI_Init(void)
 {
     HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
@@ -15,3 +16,4 @@ void DUOJI_SetAngle(uint16_t angle)
     HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1);
     HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
 }
+

@@ -43,6 +43,7 @@ extern "C" {
 #include "usart.h"
 #include "OLED.h"
 #include "OLED_Data.h"
+#include "mqtt.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -80,6 +81,8 @@ void Error_Handler(void);
 #define TRIG_GPIO_Port GPIOC
 #define LED0_Pin GPIO_PIN_2
 #define LED0_GPIO_Port GPIOB
+#define WIFI_RST_Pin GPIO_PIN_11
+#define WIFI_RST_GPIO_Port GPIOD
 #define ECHO_Pin GPIO_PIN_12
 #define ECHO_GPIO_Port GPIOD
 #define PWM_DUOJI_Pin GPIO_PIN_6

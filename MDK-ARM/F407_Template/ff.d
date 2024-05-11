@@ -45,11 +45,20 @@ f407_template\ff.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 f407_template\ff.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
 f407_template\ff.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
 f407_template\ff.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
+f407_template\ff.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\math.h
 f407_template\ff.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdio.h
+f407_template\ff.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\string.h
+f407_template\ff.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
 f407_template\ff.o: ../Middlewares/BSP/HC_SR04.h
 f407_template\ff.o: ../Core/Inc/main.h
 f407_template\ff.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 f407_template\ff.o: ../Core/Inc/usDelay.h
+f407_template\ff.o: ../Middlewares/BSP/wifi.h
+f407_template\ff.o: ../Core/Inc/gpio.h
+f407_template\ff.o: ../Core/Inc/usart.h
+f407_template\ff.o: ../Middlewares/BSP/OLED.h
+f407_template\ff.o: ../Middlewares/BSP/OLED_Data.h
+f407_template\ff.o: ../Middlewares/BSP/mqtt.h
 f407_template\ff.o: ../FATFS/Target/bsp_driver_sd.h
 f407_template\ff.o: ../FATFS/Target/fatfs_platform.h
 f407_template\ff.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
@@ -63,4 +72,3 @@ f407_template\ff.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrapp
 f407_template\ff.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
 f407_template\ff.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
 f407_template\ff.o: ../Middlewares/Third_Party/FatFs/src/diskio.h
-f407_template\ff.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdarg.h

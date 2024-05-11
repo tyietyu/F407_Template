@@ -70,6 +70,12 @@
 "f407_template\heap_4.o"
 "f407_template\port.o"
 "f407_template\hc_sr04.o"
+"f407_template\duoji.o"
+"f407_template\mqtt.o"
+"f407_template\oled.o"
+"f407_template\oled_data.o"
+"f407_template\wifi.o"
+"f407_template\wifi_test.o"
 --library_type=microlib --strict --scatter "F407_Template\F407_Template.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

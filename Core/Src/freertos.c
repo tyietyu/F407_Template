@@ -1,20 +1,20 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * File Name          : freertos.c
-  * Description        : Code for freertos applications
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2024 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * File Name          : freertos.c
+ * Description        : Code for freertos applications
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2024 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
@@ -30,8 +30,8 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-RTC_DateTypeDef GetData;  //获取日期结构
-RTC_TimeTypeDef GetTime;   //获取时间结构
+RTC_DateTypeDef GetData; // 获取日期结构
+RTC_TimeTypeDef GetTime; // 获取时间结构
 
 /* USER CODE END PTD */
 
@@ -48,8 +48,9 @@ extern ADC_HandleTypeDef hadc1;
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-uint16_t ADC1_Sample=0;
-uint16_t ADC1_Value=0;
+uint16_t ADC1_Sample     = 0;
+uint16_t ADC1_Value		 = 0;  
+extern  uint8_t keyVal;
 /* USER CODE END Variables */
 /* Definitions for LEDTask */
 osThreadId_t LEDTaskHandle;
@@ -120,19 +121,19 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
-  /* add mutexes, ... */
+    /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
-  /* add semaphores, ... */
+    /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* USER CODE BEGIN RTOS_TIMERS */
-  /* start timers, add new ones, ... */
+    /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
+    /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -155,166 +156,148 @@ void MX_FREERTOS_Init(void) {
   KEYTASKHandle = osThreadNew(keyTask, NULL, &KEYTASK_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
+    /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
-  /* add events, ... */
+    /* add events, ... */
   /* USER CODE END RTOS_EVENTS */
 
 }
 
 /* USER CODE BEGIN Header_ledTask */
 /**
-  * @brief  Function implementing the LEDTask thread.
-  * @param  argument: Not used
-  * @retval None
-  */
+ * @brief  Function implementing the LEDTask thread.
+ * @param  argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_ledTask */
 void ledTask(void *argument)
 {
   /* init code for USB_DEVICE */
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN ledTask */
-  /* Infinite loop */
-  for(;;)
-  {
-	  HAL_GPIO_WritePin(LED0_GPIO_Port,LED0_Pin,GPIO_PIN_SET);
-	  osDelay(100);
-	  HAL_GPIO_WritePin(LED0_GPIO_Port,LED0_Pin,GPIO_PIN_RESET);
-	  osDelay(400);
-	  
-  }
+    /* Infinite loop */
+    for (;;) {
+        HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_SET);
+        osDelay(100);
+        HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_RESET);
+        osDelay(400);
+    }
   /* USER CODE END ledTask */
 }
 
 /* USER CODE BEGIN Header_rtcTask */
 /**
-* @brief Function implementing the RTC_TASK thread.
-* @param argument: Not used
-* @retval None
-*/
+ * @brief Function implementing the RTC_TASK thread.
+ * @param argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_rtcTask */
 void rtcTask(void *argument)
 {
   /* USER CODE BEGIN rtcTask */
-  /* Infinite loop */
-  for(;;)
-  {
-	  	  /* Get the RTC current Time */
-	  HAL_RTC_GetTime(&hrtc, &GetTime, RTC_FORMAT_BIN);
-      /* Get the RTC current Date */
-      HAL_RTC_GetDate(&hrtc, &GetData, RTC_FORMAT_BIN);
+    /* Infinite loop */
+    for (;;) {
+        /* Get the RTC current Time */
+        HAL_RTC_GetTime(&hrtc, &GetTime, RTC_FORMAT_BIN);
+        /* Get the RTC current Date */
+        HAL_RTC_GetDate(&hrtc, &GetData, RTC_FORMAT_BIN);
 
-      /* Display date Format : yy/mm/dd */
-      printf("%02d/%02d/%02d\r\n",2000 + GetData.Year, GetData.Month, GetData.Date);
-      /* Display time Format : hh:mm:ss */
-      printf("%02d:%02d:%02d\r\n",GetTime.Hours, GetTime.Minutes, GetTime.Seconds);
-      printf("\r\n");
-	  osDelay(1000);
-  }
+        /* Display date Format : yy/mm/dd */
+        printf("%02d/%02d/%02d\r\n", 2000 + GetData.Year, GetData.Month, GetData.Date);
+        /* Display time Format : hh:mm:ss */
+        printf("%02d:%02d:%02d\r\n", GetTime.Hours, GetTime.Minutes, GetTime.Seconds);
+        printf("\r\n");
+        osDelay(1000);
+    }
   /* USER CODE END rtcTask */
 }
 
 /* USER CODE BEGIN Header_guangMinTask */
 /**
-* @brief Function implementing the GUANGMIN_Task thread.
-* @param argument: Not used
-* @retval None
-*/
+ * @brief Function implementing the GUANGMIN_Task thread.
+ * @param argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_guangMinTask */
 void guangMinTask(void *argument)
 {
   /* USER CODE BEGIN guangMinTask */
-  /* Infinite loop */
-  for(;;)
-  {
-    HAL_ADC_Start(&hadc1);
-	if(HAL_ADC_PollForConversion(&hadc1,10) == HAL_OK)
-	{
-		ADC1_Sample = HAL_ADC_GetValue(&hadc1);
-		ADC1_Value = ADC1_Sample * 330/4096;
-	}
-	printf("Light intensity: %d.%d%d\n",ADC1_Value/100,(ADC1_Value/10%10),ADC1_Value%10);
-	HAL_ADC_Stop(&hadc1);
-	osDelay(500);
-  }
+    /* Infinite loop */
+    for (;;) {
+        HAL_ADC_Start(&hadc1);
+        if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK) {
+            ADC1_Sample = HAL_ADC_GetValue(&hadc1);
+            ADC1_Value  = ADC1_Sample * 330 / 4096;
+        }
+        printf("Light intensity: %d.%d%d\n", ADC1_Value / 100, (ADC1_Value / 10 % 10), ADC1_Value % 10);
+        HAL_ADC_Stop(&hadc1);
+        osDelay(500);
+    }
   /* USER CODE END guangMinTask */
 }
 
 /* USER CODE BEGIN Header_hcsr04Task */
 /**
-* @brief Function implementing the HCSR04Task thread.
-* @param argument: Not used
-* @retval None
-*/
+ * @brief Function implementing the HCSR04Task thread.
+ * @param argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_hcsr04Task */
 void hcsr04Task(void *argument)
 {
   /* USER CODE BEGIN hcsr04Task */
-  /* Infinite loop */
-  for(;;)
-  {
-	float distant=0;
-	  distant=read_len();
-	  printf("radarDistant: %.f cm\r\n, ",distant);
-    osDelay(200);
-  }
+    /* Infinite loop */
+    for (;;) {
+        float distant = 0;
+        distant       = read_len();
+        printf("radarDistant: %.f cm\r\n, ", distant);
+        osDelay(200);
+    }
   /* USER CODE END hcsr04Task */
 }
 
 /* USER CODE BEGIN Header_esp8266Task */
 /**
-* @brief Function implementing the ESP8266TASK thread.
-* @param argument: Not used
-* @retval None
-*/
+ * @brief Function implementing the ESP8266TASK thread.
+ * @param argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_esp8266Task */
 void esp8266Task(void *argument)
 {
   /* USER CODE BEGIN esp8266Task */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+    /* Infinite loop */
+    for (;;) {
+        osDelay(1);
+    }
   /* USER CODE END esp8266Task */
 }
 
 /* USER CODE BEGIN Header_keyTask */
 /**
-* @brief Function implementing the KEYTASK thread.
-* @param argument: Not used
-* @retval None
-*/
+ * @brief Function implementing the KEYTASK thread.
+ * @param argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_keyTask */
 void keyTask(void *argument)
 {
   /* USER CODE BEGIN keyTask */
-  uint16_t key;
-  uint16_t keyVal;
-  /* Infinite loop */
-  for(;;)
-  {
-    if(HAL_GPIO_ReadPin(KEY0_GPIO_Port,KEY0_Pin)==GPIO_PIN_RESET)
-    {
-        keyVal++;
+
+    /* Infinite loop */
+    for (;;) {
+        if (HAL_GPIO_ReadPin(KEY0_GPIO_Port, KEY0_Pin) == GPIO_PIN_RESET) {
+            osDelay(10);
+            if (HAL_GPIO_ReadPin(KEY0_GPIO_Port, KEY0_Pin) == GPIO_PIN_RESET) {
+                keyVal++;
+            }
+        }
+        if (keyVal == 5) {
+            keyVal = 0;
+        }
     }
-    switch (keyVal)
-    {
-    case 0:
-    //运行LED任务
-    osThreadResume(LEDTaskHandle);
-    case 1:
-    //删除LED任务
-    osThreadSuspend(LEDTaskHandle);
-    case 2:
-      break;
-    
-    default:
-      break;
-    }
-  }
   /* USER CODE END keyTask */
 }
 

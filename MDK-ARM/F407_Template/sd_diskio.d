@@ -47,11 +47,20 @@ f407_template\sd_diskio.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uar
 f407_template\sd_diskio.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
 f407_template\sd_diskio.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
 f407_template\sd_diskio.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
+f407_template\sd_diskio.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\math.h
 f407_template\sd_diskio.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdio.h
+f407_template\sd_diskio.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\string.h
+f407_template\sd_diskio.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
 f407_template\sd_diskio.o: ../Middlewares/BSP/HC_SR04.h
 f407_template\sd_diskio.o: ../Core/Inc/main.h
 f407_template\sd_diskio.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 f407_template\sd_diskio.o: ../Core/Inc/usDelay.h
+f407_template\sd_diskio.o: ../Middlewares/BSP/wifi.h
+f407_template\sd_diskio.o: ../Core/Inc/gpio.h
+f407_template\sd_diskio.o: ../Core/Inc/usart.h
+f407_template\sd_diskio.o: ../Middlewares/BSP/OLED.h
+f407_template\sd_diskio.o: ../Middlewares/BSP/OLED_Data.h
+f407_template\sd_diskio.o: ../Middlewares/BSP/mqtt.h
 f407_template\sd_diskio.o: ../FATFS/Target/bsp_driver_sd.h
 f407_template\sd_diskio.o: ../FATFS/Target/fatfs_platform.h
 f407_template\sd_diskio.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
@@ -65,4 +74,3 @@ f407_template\sd_diskio.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mp
 f407_template\sd_diskio.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
 f407_template\sd_diskio.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
 f407_template\sd_diskio.o: ../FATFS/Target/sd_diskio.h
-f407_template\sd_diskio.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\string.h

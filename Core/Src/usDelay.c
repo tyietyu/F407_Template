@@ -3,8 +3,8 @@
 #define USE_HAL_LEGACY
 #include "stm32_hal_legacy.h"
 
-// #define Timebase_Source_is_SysTick 1 // 当Timebase Source为SysTick时改为1
-#define Timebase_Source_is_SysTick 0	//当使用FreeRTOS，Timebase Source为其他定时器时改为0
+#define Timebase_Source_is_SysTick 1 // 当Timebase Source为SysTick时改为1
+//#define Timebase_Source_is_SysTick 0	//当使用FreeRTOS，Timebase Source为其他定时器时改为0
 
 #if (!Timebase_Source_is_SysTick)
 extern TIM_HandleTypeDef htim6; // 当使用FreeRTOS，Timebase Source为其他定时器时，修改为对应的定时器

@@ -1,16 +1,9 @@
 #include "wifi.h"
 
-static UART_HandleTypeDef g_uart_handle;
-static uint8_t g_uart_tx_buf[ESP8266_UART_TX_BUF_SIZE]; /* ESP8266 UART发送缓冲 */
-static struct
-{
-    uint8_t buf[ESP8266_UART_RX_BUF_SIZE];              /* 帧接收缓冲 */
-    struct
-    {
-        uint16_t len    : 15;                               /* 帧接收长度，sta[14:0] */
-        uint16_t finsh  : 1;                                /* 帧接收完成标志，sta[15] */
-    } sta;                                                  /* 帧状态信息 */
-} g_uart_rx_frame = {0};                                    /* ESP8266 UART接收帧缓冲信息结构体 */
+UART_HandleTypeDef g_uart_handle;
+uint8_t g_uart_tx_buf[ESP8266_UART_TX_BUF_SIZE];
+
+UART_RX_FRAME g_uart_rx_frame = {0};
 
 void esp8266Rst(void)
 {
@@ -24,9 +17,13 @@ uint8_t esp8266_sw_reset(void)
 {
     uint8_t ret;
     ret = esp8266SendAtCmd("AT+RST", "OK", 500);
-    if (ret == ESP8266_EOK) {
+
+    if (ret == ESP8266_EOK)
+    {
         return ESP8266_EOK;
-    } else {
+    }
+    else
+    {
         return ESP8266_ERROR;
     }
 }
@@ -36,21 +33,33 @@ uint8_t esp8266SendAtCmd(char *cmd, char *ack, uint32_t waittime)
     uint8_t *res = NULL;
     espUart_rx_restart();
     espUart_printf("%s\r\n", cmd);
-    if (ack == NULL || (timeout == 0)) {
+
+    if (ack == NULL || (waittime == 0))
+    {
         return ESP8266_EOK;
-    } else {
-        while (waittime > 0) {
+    }
+    else
+    {
+        while (waittime > 0)
+        {
             res = espUart_rx_get_frame();
-            if (res != NULL) {
-                if (strstr((const char *)res, ack) != NULL) {
+
+            if (res != NULL)
+            {
+                if (strstr((const char *)res, ack) != NULL)
+                {
                     return ESP8266_EOK;
-                } else {
+                }
+                else
+                {
                     espUart_rx_restart();
                 }
             }
+
             waittime--;
             HAL_Delay(1);
         }
+
         return ESP8266_ETIMEOUT;
     }
 }
@@ -59,7 +68,8 @@ uint8_t esp8266_init(void)
 {
     esp8266Rst();                         /* ATK-MW8266D硬件复位 */
     espUart_init();                       /* ATK-MW8266D UART初始化 */
-    if (ESP8266_at_test() != ESP8266_EOK) /* ATK-MW8266D AT指令测试 */
+
+    if (esp8266_at_test() != ESP8266_EOK) /* ATK-MW8266D AT指令测试 */
     {
         return ESP8266_ERROR;
     }
@@ -72,12 +82,16 @@ uint8_t esp8266_at_test(void)
     uint8_t ret;
     uint8_t i;
 
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < 10; i++)
+    {
         ret = esp8266SendAtCmd("AT", "OK", 500);
-        if (ret == ESP8266_EOK) {
+
+        if (ret == ESP8266_EOK)
+        {
             return ESP8266_EOK;
         }
     }
+
     return ESP8266_ERROR;
 }
 
@@ -85,9 +99,13 @@ uint8_t esp8266_restore(void)
 {
     uint8_t ret;
     ret = esp8266SendAtCmd("AT+RESTORE", "ready", 3000);
-    if (ret == ESP8266_EOK) {
+
+    if (ret == ESP8266_EOK)
+    {
         return ESP8266_EOK;
-    } else {
+    }
+    else
+    {
         return ESP8266_ERROR;
     }
 }
@@ -95,27 +113,39 @@ uint8_t esp8266_restore(void)
 uint8_t esp8266_set_mode(uint8_t mode)
 {
     uint8_t ret;
-    switch (mode) {
-        case 1: {
+
+    switch (mode)
+    {
+        case 1:
+        {
             ret = esp8266SendAtCmd("AT+CWMODE=1", "OK", 500); /* Station模式 */
             break;
         }
-        case 2: {
+
+        case 2:
+        {
             ret = esp8266SendAtCmd("AT+CWMODE=2", "OK", 500); /* AP模式 */
             break;
         }
-        case 3: {
+
+        case 3:
+        {
             ret = esp8266SendAtCmd("AT+CWMODE=3", "OK", 500); /* AP+Station模式 */
             break;
         }
-        default: {
+
+        default:
+        {
             return ESP8266_EINVAL;
         }
     }
 
-    if (ret == ESP8266_EOK) {
+    if (ret == ESP8266_EOK)
+    {
         return ESP8266_EOK;
-    } else {
+    }
+    else
+    {
         return ESP8266_ERROR;
     }
 }
@@ -124,23 +154,32 @@ uint8_t esp8266_ate_config(uint8_t cfg)
 {
     uint8_t ret;
 
-    switch (cfg) {
-        case 0: {
+    switch (cfg)
+    {
+        case 0:
+        {
             ret = esp8266SendAtCmd("ATE0", "OK", 500); /* 关闭回显 */
             break;
         }
-        case 1: {
+
+        case 1:
+        {
             ret = esp8266SendAtCmd("ATE1", "OK", 500); /* 打开回显 */
             break;
         }
-        default: {
+
+        default:
+        {
             return ESP8266_EINVAL;
         }
     }
 
-    if (ret == ESP8266_EOK) {
+    if (ret == ESP8266_EOK)
+    {
         return ESP8266_EOK;
-    } else {
+    }
+    else
+    {
         return ESP8266_ERROR;
     }
 }
@@ -152,9 +191,13 @@ uint8_t esp8266_join_ap(char *ssid, char *pwd)
 
     sprintf(cmd, "AT+CWJAP=\"%s\",\"%s\"", ssid, pwd);
     ret = esp8266SendAtCmd(cmd, "WIFI GOT IP", 10000);
-    if (ret == ESP8266_EOK) {
+
+    if (ret == ESP8266_EOK)
+    {
         return ESP8266_EOK;
-    } else {
+    }
+    else
+    {
         return ESP8266_ERROR;
     }
 }
@@ -166,7 +209,9 @@ uint8_t esp8266_get_ip(char *buf)
     char *p_end;
 
     ret = esp8266SendAtCmd("AT+CIFSR", "OK", 500);
-    if (ret != ESP8266_EOK) {
+
+    if (ret != ESP8266_EOK)
+    {
         return ESP8266_ERROR;
     }
 
@@ -184,9 +229,13 @@ uint8_t esp8266_connect_tcp_server(char *server_ip, char *server_port)
 
     sprintf(cmd, "AT+CIPSTART=\"TCP\",\"%s\",%s", server_ip, server_port);
     ret = esp8266SendAtCmd(cmd, "CONNECT", 5000);
-    if (ret == ESP8266_EOK) {
+
+    if (ret == ESP8266_EOK)
+    {
         return ESP8266_EOK;
-    } else {
+    }
+    else
+    {
         return ESP8266_ERROR;
     }
 }
@@ -197,9 +246,13 @@ uint8_t esp8266_enter_unvarnished(void)
 
     ret = esp8266SendAtCmd("AT+CIPMODE=1", "OK", 500);
     ret += esp8266SendAtCmd("AT+CIPSEND", ">", 500);
-    if (ret == ESP8266_EOK) {
+
+    if (ret == ESP8266_EOK)
+    {
         return ESP8266_EOK;
-    } else {
+    }
+    else
+    {
         return ESP8266_ERROR;
     }
 }
@@ -213,9 +266,10 @@ uint8_t esp8266_connect_atkcld(char *id, char *pwd)
 {
     uint8_t ret;
     char cmd[64];
-    
+
     sprintf(cmd, "AT+ATKCLDSTA=\"%s\",\"%s\"", id, pwd);
     ret =esp8266SendAtCmd(cmd, "CLOUD CONNECTED", 10000);
+
     if (ret == ESP8266_EOK)
     {
         return ESP8266_EOK;
@@ -229,8 +283,9 @@ uint8_t esp8266_connect_atkcld(char *id, char *pwd)
 uint8_t esp8266_disconnect_atkcld(void)
 {
     uint8_t ret;
-    
+
     ret = esp8266SendAtCmd("AT+ATKCLDCLS", "CLOUD DISCONNECT", 500);
+
     if (ret == ESP8266_EOK)
     {
         return ESP8266_EOK;
@@ -277,19 +332,25 @@ void espUart_rx_restart(void)
 
 uint8_t *espUart_rx_get_frame(void)
 {
-    if (g_uart_rx_frame.sta.finsh == 1) {
+    if (g_uart_rx_frame.sta.finsh == 1)
+    {
         g_uart_rx_frame.buf[g_uart_rx_frame.sta.len] = '\0';
         return g_uart_rx_frame.buf;
-    } else {
+    }
+    else
+    {
         return NULL;
     }
 }
 
 uint16_t espUart_rx_get_frame_len(void)
 {
-    if (g_uart_rx_frame.sta.finsh == 1) {
+    if (g_uart_rx_frame.sta.finsh == 1)
+    {
         return g_uart_rx_frame.sta.len;
-    } else {
+    }
+    else
+    {
         return 0;
     }
 }
@@ -315,7 +376,8 @@ void ESP8266_UART_IRQHandler(void)
         {
             g_uart_rx_frame.buf[g_uart_rx_frame.sta.len] = tmp; /* 将接收到的数据写入缓冲 */
             g_uart_rx_frame.sta.len++;                          /* 更新接收到的数据长度 */
-        } else                                                  /* UART接收缓冲溢出 */
+        }
+        else                                                    /* UART接收缓冲溢出 */
         {
             g_uart_rx_frame.sta.len                      = 0;   /* 覆盖之前收到的数据 */
             g_uart_rx_frame.buf[g_uart_rx_frame.sta.len] = tmp; /* 将接收到的数据写入缓冲 */

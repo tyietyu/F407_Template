@@ -3,6 +3,20 @@
 
 #include "main.h"
 
+#define ESP8266_UART_IRQHandler           USART2_IRQHandler
+#define ESP8266_UART_RX_BUF_SIZE 64
+#define ESP8266_UART_TX_BUF_SIZE 64 
+
+typedef struct
+{
+    uint8_t buf[ESP8266_UART_RX_BUF_SIZE];              /* 帧接收缓冲 */
+    struct
+    {
+        uint16_t len    : 15;                               /* 帧接收长度，sta[14:0] */
+        uint16_t finsh  : 1;                                /* 帧接收完成标志，sta[15] */
+    } sta;                                                  /* 帧状态信息 */
+} UART_RX_FRAME;  
+
 /* ESP8266错误代码 */
 #define ESP8266_EOK         0   /* 没有错误 */
 #define ESP8266_ERROR       1   /* 通用错误 */
@@ -27,10 +41,6 @@ uint8_t esp8266_disconnect_atkcld(void);                                /* ATK-M
 
 
 /*esp8266uart*/
-#define ESP8266_UART_IRQHandler           USART2_IRQHandler
-#define ESP8266_UART_RX_BUF_SIZE 128
-#define ESP8266_UART_TX_BUF_SIZE 64
-
 void espUart_init(void);
 void espUart_rx_restart(void);
 void espUart_printf(char *fmt, ...);

@@ -78,7 +78,7 @@ uint8_t OLED_DisplayBuf[8][128];
 
 /*********************全局变量*/
 
-
+extern GPIO_InitTypeDef GPIO_InitStruct;
 /*引脚配置*********************/
 
 /**
@@ -124,21 +124,9 @@ void OLED_W_SDA(uint8_t BitValue)
   */
 void OLED_GPIO_Init(void)
 {
-	uint32_t i, j;
-	
+
 	/*在初始化前，加入适量延时，待OLED供电稳定*/
-	for (i = 0; i < 1000; i ++)
-	{
-		for (j = 0; j < 1000; j ++);
-	}
-	
-	/*将SCL和SDA引脚初始化为开漏模式*/
-  GPIO_InitStruct.Pin = SCL_Pin|SDA_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-	
+	HAL_Delay(100);
 	/*释放SCL和SDA*/
 	OLED_W_SCL(1);
 	OLED_W_SDA(1);
