@@ -56,6 +56,7 @@ f407_template\main.o: ../Core/Inc/usart.h
 f407_template\main.o: ../Middlewares/BSP/OLED.h
 f407_template\main.o: ../Middlewares/BSP/OLED_Data.h
 f407_template\main.o: ../Middlewares/BSP/mqtt.h
+f407_template\main.o: ../Middlewares/BSP/wifi_test.h
 f407_template\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
 f407_template\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 f407_template\main.o: ../Core/Inc/FreeRTOSConfig.h

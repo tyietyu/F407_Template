@@ -61,6 +61,7 @@ f407_template\diskio.o: ../Core/Inc/usart.h
 f407_template\diskio.o: ../Middlewares/BSP/OLED.h
 f407_template\diskio.o: ../Middlewares/BSP/OLED_Data.h
 f407_template\diskio.o: ../Middlewares/BSP/mqtt.h
+f407_template\diskio.o: ../Middlewares/BSP/wifi_test.h
 f407_template\diskio.o: ../FATFS/Target/bsp_driver_sd.h
 f407_template\diskio.o: ../FATFS/Target/fatfs_platform.h
 f407_template\diskio.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h

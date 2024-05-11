@@ -57,3 +57,4 @@ f407_template\oled.o: ../Core/Inc/gpio.h
 f407_template\oled.o: ../Core/Inc/usart.h
 f407_template\oled.o: ../Middlewares/BSP/OLED.h
 f407_template\oled.o: ../Middlewares/BSP/mqtt.h
+f407_template\oled.o: ../Middlewares/BSP/wifi_test.h

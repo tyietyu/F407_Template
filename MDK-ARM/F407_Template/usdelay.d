@@ -56,3 +56,4 @@ f407_template\usdelay.o: ../Core/Inc/usart.h
 f407_template\usdelay.o: ../Middlewares/BSP/OLED.h
 f407_template\usdelay.o: ../Middlewares/BSP/OLED_Data.h
 f407_template\usdelay.o: ../Middlewares/BSP/mqtt.h
+f407_template\usdelay.o: ../Middlewares/BSP/wifi_test.h

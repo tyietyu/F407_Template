@@ -56,4 +56,5 @@ f407_template\stm32f4xx_it.o: ../Core/Inc/usart.h
 f407_template\stm32f4xx_it.o: ../Middlewares/BSP/OLED.h
 f407_template\stm32f4xx_it.o: ../Middlewares/BSP/OLED_Data.h
 f407_template\stm32f4xx_it.o: ../Middlewares/BSP/mqtt.h
+f407_template\stm32f4xx_it.o: ../Middlewares/BSP/wifi_test.h
 f407_template\stm32f4xx_it.o: ../Core/Inc/stm32f4xx_it.h

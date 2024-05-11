@@ -59,6 +59,7 @@ f407_template\usbd_desc.o: ../Core/Inc/usart.h
 f407_template\usbd_desc.o: ../Middlewares/BSP/OLED.h
 f407_template\usbd_desc.o: ../Middlewares/BSP/OLED_Data.h
 f407_template\usbd_desc.o: ../Middlewares/BSP/mqtt.h
+f407_template\usbd_desc.o: ../Middlewares/BSP/wifi_test.h
 f407_template\usbd_desc.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 f407_template\usbd_desc.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 f407_template\usbd_desc.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h

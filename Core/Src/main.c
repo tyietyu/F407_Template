@@ -29,10 +29,9 @@
 #include "usart.h"
 #include "usb_device.h"
 #include "gpio.h"
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "wifi_test.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -129,7 +128,7 @@ int main(void)
     while (1)
     {
     /* USER CODE END WHILE */
-
+	wifi_test();
     /* USER CODE BEGIN 3 */
 
     }

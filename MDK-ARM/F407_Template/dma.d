@@ -57,3 +57,4 @@ f407_template\dma.o: ../Core/Inc/usart.h
 f407_template\dma.o: ../Middlewares/BSP/OLED.h
 f407_template\dma.o: ../Middlewares/BSP/OLED_Data.h
 f407_template\dma.o: ../Middlewares/BSP/mqtt.h
+f407_template\dma.o: ../Middlewares/BSP/wifi_test.h
