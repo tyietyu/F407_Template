@@ -54,6 +54,8 @@ f407_template\usbd_desc.o: ../Core/Inc/main.h
 f407_template\usbd_desc.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 f407_template\usbd_desc.o: ../Core/Inc/usDelay.h
 f407_template\usbd_desc.o: ../Middlewares/BSP/wifi.h
+f407_template\usbd_desc.o: ../Middlewares/BSP/core_json.h
+f407_template\usbd_desc.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdbool.h
 f407_template\usbd_desc.o: ../Core/Inc/gpio.h
 f407_template\usbd_desc.o: ../Core/Inc/usart.h
 f407_template\usbd_desc.o: ../Middlewares/BSP/OLED.h

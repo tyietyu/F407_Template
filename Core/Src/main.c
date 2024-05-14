@@ -109,7 +109,7 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-
+  __HAL_UART_ENABLE_IT(&huart2,UART_IT_RXNE);
  
 
   #if USER_FREE_RTOS
@@ -131,7 +131,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
+    wifiAT_test();
     }
 
   /* USER CODE END 3 */

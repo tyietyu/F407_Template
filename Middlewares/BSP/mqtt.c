@@ -1,7 +1,7 @@
 #include "mqtt.h"
 
-extern volatile UART_RX_FRAME g_uart_rx_frame;
-extern   UART_HandleTypeDef g_uart_handle;
+
+
 char MQTT_ClientID[100]; // MQTT_客户端ID
 char MQTT_UserName[100]; // MQTT_用户名
 char MQTT_PassWord[100]; // MQTT_密码
@@ -154,14 +154,6 @@ uint8_t MQTT_Connect(char *ClientID, char *Username, char *Password)
         {
             HAL_Delay(50);
 
-            if (__HAL_UART_GET_FLAG(&g_uart_handle,UART_FLAG_RXNE) != RESET)
-            {
-                g_uart_rx_frame.buf[g_uart_rx_frame.sta.len] = '\0';
-                sprintf((char *)mqtt_rxbuf, "%s", g_uart_rx_frame.buf);
-                g_uart_rx_frame.sta.finsh = 0;
-                g_uart_rx_frame.sta.len   = 0; 
-            }
-
             // CONNECT
             if (mqtt_rxbuf[0] == parket_connetAck[0] && mqtt_rxbuf[1] == parket_connetAck[1]) // 连接成功
             {
@@ -231,14 +223,6 @@ uint8_t MQTT_SubscribeTopic(char *topic, uint8_t qos, uint8_t whether)
         for (j = 0; j < 10; j++)
         {
             HAL_Delay(50);
-
-            if (__HAL_UART_GET_FLAG(&g_uart_handle, UART_FLAG_RXNE) != RESET)
-            {
-				g_uart_rx_frame.buf[ESP8266_UART_RX_BUF_SIZE-1] = '\0';
-                strcpy((char *)mqtt_rxbuf, (char *) g_uart_rx_frame.buf);
-                g_uart_rx_frame.sta.finsh = 0;
-                g_uart_rx_frame.sta.len  = 0;
-            }
 
             if (mqtt_rxbuf[0] == parket_subAck[0] && mqtt_rxbuf[1] == parket_subAck[1]) // 订阅成功
             {

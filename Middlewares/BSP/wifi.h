@@ -2,50 +2,39 @@
 #define _WIFI_H
 
 #include "main.h"
+#include "core_json.h"
 
-#define ESP8266_UART_IRQHandler           USART2_IRQHandler
-#define ESP8266_UART_RX_BUF_SIZE 64
-#define ESP8266_UART_TX_BUF_SIZE 64 
+#define WIFI_SSID        "RavSense"
+#define WIFI_PASSWD      "rwwdz123456"
 
-typedef struct
-{
-    uint8_t buf[ESP8266_UART_RX_BUF_SIZE];              /* 帧接收缓冲 */
-    struct
-    {
-        uint16_t len    : 15;                               /* 帧接收长度，sta[14:0] */
-        uint16_t finsh  : 1;                                /* 帧接收完成标志，sta[15] */
-    } sta;                                                  /* 帧状态信息 */
-} UART_RX_FRAME;  
-
-/* ESP8266错误代码 */
-#define ESP8266_EOK         0   /* 没有错误 */
-#define ESP8266_ERROR       1   /* 通用错误 */
-#define ESP8266_ETIMEOUT    2   /* 超时错误 */
-#define ESP8266_EINVAL      3   /* 参数错误 */
-
-void esp8266Rst(void);                                            /* ATK-MW8266D硬件复位 */
-uint8_t esp8266SendAtCmd(char *cmd, char *ack, uint32_t timeout);    /* ATK-MW8266D发送AT指令 */
-uint8_t esp8266_init(void);                                /* ATK-MW8266D初始化 */
-uint8_t esp8266_restore(void);                                          /* ATK-MW8266D恢复出厂设置 */
-uint8_t esp8266_at_test(void);                                          /* ATK-MW8266D AT指令测试 */
-uint8_t esp8266_set_mode(uint8_t mode);                                 /* 设置ATK-MW8266D工作模式 */
-uint8_t esp8266_sw_reset(void);                                         /* ATK-MW8266D软件复位 */
-uint8_t esp8266_ate_config(uint8_t cfg);                                /* ATK-MW8266D设置回显模式 */
-uint8_t esp8266_join_ap(char *ssid, char *pwd);                         /* ATK-MW8266D连接WIFI */
-uint8_t esp8266_get_ip(char *buf);                                      /* ATK-MW8266D获取IP地址 */
-uint8_t esp8266_connect_tcp_server(char *server_ip, char *server_port); /* ATK-MW8266D连接TCP服务器 */
-uint8_t esp8266_enter_unvarnished(void);                                /* ATK-MW8266D进入透传 */
-void esp8266_exit_unvarnished(void);                                    /* ATK-MW8266D退出透传 */
-uint8_t esp8266_connect_atkcld(char *id, char *pwd);                    /* ATK-MW8266D连接原子云服务器 */
-uint8_t esp8266_disconnect_atkcld(void);                                /* ATK-MW8266D断开原子云服务器连接 */
+#define MQTT_CLIENT_ID   "mqtt_stm32|securemode=2\\,signmethod=hmacsha1\\,timestamp=1687594902069|"   
+#define MQTT_USER_NAME   "mqtt_stm32&a1TGt6tIcAE"
+#define MQTT_PASSWD      "556483AFA86B8FF534E3DB0A14EE7A36D2910B2D"
+#define BROKER_ASDDRESS  "a1TGt6tIcAE.iot-as-mqtt.cn-shanghai.aliyuncs.com"
+#define SUB_TOPIC        "/sys/a1TGt6tIcAE/mqtt_stm32/thing/service/property/set"
+#define PUB_TOPIC        "/sys/a1TGt6tIcAE/mqtt_stm32/thing/event/property/post"
+#define JSON_FORMAT      "{\\\"params\\\":{\\\"temp\\\":%d\\,\\\"humi\\\":%d\\}\\,\\\"version\\\":\\\"1.0.0\\\"}"
 
 
-/*esp8266uart*/
-void espUart_init(void);
-void espUart_rx_restart(void);
+#define ESP8266_UART_RX_BUF_SIZE 512
+#define ESP8266_UART_TX_BUF_SIZE 512
+
+void espUart_rx_data(void);
+uint8_t esp8266_receive_msg(void);
+uint8_t esp8266_send_msg(void);
+void esp8266_init(void);
+uint8_t parse_json_msg(uint8_t *json_msg,uint8_t json_len);
+uint8_t esp8266_reset(void);
+uint8_t esp8266_connect_server(void);
+uint8_t esp8266_config_network(void);
+uint8_t esp8266_send_cmd(unsigned char *cmd,unsigned char len,char *rec_data);
+void espUart_receiver_clear(uint16_t len);
+void espUart_rx_data(void);
 void espUart_printf(char *fmt, ...);
-uint8_t *espUart_rx_get_frame(void);
-uint16_t espUart_rx_get_frame_len(void);
 
-#endif 
+
+
+
+#endif
+
 

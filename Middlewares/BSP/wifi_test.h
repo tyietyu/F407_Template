@@ -6,8 +6,7 @@
 #include "mqtt.h"
 
 
-void wifi_test(void);
-
+void wifiAT_test(void);
 #endif // WIFI_TEST_H
 
 

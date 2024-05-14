@@ -56,6 +56,8 @@ f407_template\ff_gen_drv.o: ../Core/Inc/main.h
 f407_template\ff_gen_drv.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 f407_template\ff_gen_drv.o: ../Core/Inc/usDelay.h
 f407_template\ff_gen_drv.o: ../Middlewares/BSP/wifi.h
+f407_template\ff_gen_drv.o: ../Middlewares/BSP/core_json.h
+f407_template\ff_gen_drv.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdbool.h
 f407_template\ff_gen_drv.o: ../Core/Inc/gpio.h
 f407_template\ff_gen_drv.o: ../Core/Inc/usart.h
 f407_template\ff_gen_drv.o: ../Middlewares/BSP/OLED.h

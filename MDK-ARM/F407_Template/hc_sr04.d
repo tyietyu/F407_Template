@@ -51,6 +51,8 @@ f407_template\hc_sr04.o: ../Middlewares/BSP/HC_SR04.h
 f407_template\hc_sr04.o: ../Core/Inc/usDelay.h
 f407_template\hc_sr04.o: ../Core/Inc/main.h
 f407_template\hc_sr04.o: ../Middlewares/BSP/wifi.h
+f407_template\hc_sr04.o: ../Middlewares/BSP/core_json.h
+f407_template\hc_sr04.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdbool.h
 f407_template\hc_sr04.o: ../Core/Inc/gpio.h
 f407_template\hc_sr04.o: ../Core/Inc/usart.h
 f407_template\hc_sr04.o: ../Middlewares/BSP/OLED.h
