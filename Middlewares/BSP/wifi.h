@@ -7,18 +7,25 @@
 #define WIFI_SSID        "RavSense"
 #define WIFI_PASSWD      "rwwdz123456"
 
-#define MQTT_CLIENT_ID   "ESP_OTA\\,signmethod=hmacsha1\\,timestamp=1687594902069|"   
-#define MQTT_USER_NAME   "ESP_OTA"
-#define MQTT_PASSWD      "40BB1CB64363E1CCF491CFA8D73A08207B8F9664"
-#define BROKER_ASDDRESS  "a1TGt6tIcAE.iot-as-mqtt.cn-shanghai.aliyuncs.com"
-#define SUB_TOPIC        "/sys/a1TGt6tIcAE/mqtt_stm32/thing/service/property/set"
-#define PUB_TOPIC        "/sys/a1TGt6tIcAE/mqtt_stm32/thing/event/property/post"
+#define MQTT_CLIENT_ID   "stm32_espota|securemode=2,signmethod=hmacsha1,timestamp=1715763984940|"   
+#define MQTT_USER_NAME   "ESP_OTA&k1644sbngGw"
+#define MQTT_PASSWD      "BA8D7F524D426F46ABB1C956B8D3060CF2B47A63"
+#define BROKER_ASDDRESS  "k1644sbngGw.iot-as-mgtt.cn-shanghai.aliyuncs.com"
+#define SUB_TOPIC        "/sys/k1644sbngGw/ESP_OTA/thing/service/property/set"
+#define PUB_TOPIC        "/sys/k1644sbngGw/ESP_OTA/thing/event/property/post"
 #define JSON_FORMAT      "{\\\"params\\\":{\\\"temp\\\":%d\\,\\\"humi\\\":%d\\}\\,\\\"version\\\":\\\"1.0.0\\\"}"
-/*
+/* 阿里云物联网平台设备信息
 {
   "ProductKey": "k1644sbngGw",
   "DeviceName": "ESP_OTA",
   "DeviceSecret": "7de1b392a12d3ac5fbb52876c4311671"
+  mqttclintID:  stm32_espota|securemode=2,signmethod=hmacsha1,timestamp=1715763984940|
+  mqttusername:  ESP_OTA&k1644sbngGw
+  mqttpassword: BA8D7F524D426F46ABB1C956B8D3060CF2B47A63
+  BrokerAdder: k1644sbngGw.iot-as-mgtt.cn-shanghai.aliyuncs.com
+  port:1883
+  消息发布主题格式：/sys/ProductKey/DeviceName/thing/.event/property/post
+  消息订阅主题格式：/sys/ProductKey/DeviceName/thing/service/.property/set
 }
 */
 
