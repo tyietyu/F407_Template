@@ -43,6 +43,26 @@ void esp8266_init(void)
     {
         HAL_Delay(8000);
     }
+	printf("6.MQTT USER CONFIG\r\n");
+	while(esp8266_send_cmd((uint8_t *)"AT+MQTTUSERCFG=0,1,\""MQTT_CLIENT_ID"\",\""MQTT_USER_NAME"\",\""MQTT_PASSWD"\",0,0,\"\"\r\n",
+                          strlen("AT+MQTTUSERCFG=0,1,\""MQTT_CLIENT_ID"\",\""MQTT_USER_NAME"\",\""MQTT_PASSWD"\",0,0,\"\"\r\n"),"OK")!=0)
+	{
+		HAL_Delay(2000);
+	}
+	printf("7.CONNECT MQTT BROKER\r\n");
+
+	while(esp8266_connect_server() != 0)
+	{
+		HAL_Delay(8000);
+	}
+	printf("8.SUBSCRIBE TOPIC\r\n");
+
+	while(esp8266_send_cmd((uint8_t *)"AT+MQTTSUB=0,\""SUB_TOPIC"\",0\r\n",strlen("AT+MQTTSUB=0,\""SUB_TOPIC"\",0\r\n"),"OK")!=0)
+	{
+		HAL_Delay(2000);
+	}
+	printf("9.ESP8266 INIT OK!!!\r\n");
+ 
 }
 
 void espUart_rx_data(void)
