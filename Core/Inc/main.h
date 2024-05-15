@@ -45,6 +45,7 @@ extern "C" {
 #include "OLED_Data.h"
 #include "mqtt.h"
 #include "wifi_test.h"
+#include "core_json.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

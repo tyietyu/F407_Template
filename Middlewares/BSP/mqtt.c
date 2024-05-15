@@ -1,7 +1,5 @@
 #include "mqtt.h"
 
-
-
 char MQTT_ClientID[100]; // MQTT_客户端ID
 char MQTT_UserName[100]; // MQTT_用户名
 char MQTT_PassWord[100]; // MQTT_密码
