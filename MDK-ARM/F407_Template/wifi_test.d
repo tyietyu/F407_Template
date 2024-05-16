@@ -59,5 +59,5 @@ f407_template\wifi_test.o: ../Middlewares/BSP/OLED.h
 f407_template\wifi_test.o: ../Middlewares/BSP/OLED_Data.h
 f407_template\wifi_test.o: ../Middlewares/BSP/mqtt.h
 f407_template\wifi_test.o: ../Middlewares/BSP/wifi_test.h
-f407_template\wifi_test.o: ..\Middlewares\BSP\core_json.h
+f407_template\wifi_test.o: ../Middlewares/BSP/core_json.h
 f407_template\wifi_test.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdbool.h
