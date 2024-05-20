@@ -1,0 +1,11 @@
+f407_template\mqttconnectserver.o: ..\Middlewares\MQTTPacket\MQTTConnectServer.c
+f407_template\mqttconnectserver.o: ..\Middlewares\MQTTPacket\StackTrace.h
+f407_template\mqttconnectserver.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdio.h
+f407_template\mqttconnectserver.o: ..\Middlewares\MQTTPacket\MQTTPacket.h
+f407_template\mqttconnectserver.o: ..\Middlewares\MQTTPacket\MQTTConnect.h
+f407_template\mqttconnectserver.o: ..\Middlewares\MQTTPacket\MQTTPublish.h
+f407_template\mqttconnectserver.o: ..\Middlewares\MQTTPacket\MQTTSubscribe.h
+f407_template\mqttconnectserver.o: ..\Middlewares\MQTTPacket\MQTTUnsubscribe.h
+f407_template\mqttconnectserver.o: ..\Middlewares\MQTTPacket\MQTTFormat.h
+f407_template\mqttconnectserver.o: ..\Middlewares\MQTTPacket\MQTTPacket.h
+f407_template\mqttconnectserver.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\string.h

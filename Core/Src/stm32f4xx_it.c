@@ -22,6 +22,7 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "ESP8266Client.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -36,7 +37,8 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+extern int rx_len;
+extern int recv_end_flag ;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -63,9 +65,11 @@ extern DMA_HandleTypeDef hdma_sdio_tx;
 extern SD_HandleTypeDef hsd;
 extern DMA_HandleTypeDef hdma_spi1_tx;
 extern DMA_HandleTypeDef hdma_spi1_rx;
-extern TIM_HandleTypeDef htim4;
 extern DMA_HandleTypeDef hdma_usart1_tx;
 extern DMA_HandleTypeDef hdma_usart1_rx;
+extern DMA_HandleTypeDef hdma_usart2_rx;
+extern DMA_HandleTypeDef hdma_usart2_tx;
+extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart2;
 extern TIM_HandleTypeDef htim6;
 
@@ -185,6 +189,34 @@ void RCC_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles DMA1 stream5 global interrupt.
+  */
+void DMA1_Stream5_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Stream5_IRQn 0 */
+
+  /* USER CODE END DMA1_Stream5_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_usart2_rx);
+  /* USER CODE BEGIN DMA1_Stream5_IRQn 1 */
+
+  /* USER CODE END DMA1_Stream5_IRQn 1 */
+}
+
+/**
+  * @brief This function handles DMA1 stream6 global interrupt.
+  */
+void DMA1_Stream6_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Stream6_IRQn 0 */
+
+  /* USER CODE END DMA1_Stream6_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_usart2_tx);
+  /* USER CODE BEGIN DMA1_Stream6_IRQn 1 */
+
+  /* USER CODE END DMA1_Stream6_IRQn 1 */
+}
+
+/**
   * @brief This function handles ADC1, ADC2 and ADC3 global interrupts.
   */
 void ADC_IRQHandler(void)
@@ -199,17 +231,17 @@ void ADC_IRQHandler(void)
 }
 
 /**
-  * @brief This function handles TIM4 global interrupt.
+  * @brief This function handles USART1 global interrupt.
   */
-void TIM4_IRQHandler(void)
+void USART1_IRQHandler(void)
 {
-  /* USER CODE BEGIN TIM4_IRQn 0 */
+  /* USER CODE BEGIN USART1_IRQn 0 */
 
-  /* USER CODE END TIM4_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim4);
-  /* USER CODE BEGIN TIM4_IRQn 1 */
+  /* USER CODE END USART1_IRQn 0 */
+  HAL_UART_IRQHandler(&huart1);
+  /* USER CODE BEGIN USART1_IRQn 1 */
 
-  /* USER CODE END TIM4_IRQn 1 */
+  /* USER CODE END USART1_IRQn 1 */
 }
 
 /**
@@ -218,7 +250,20 @@ void TIM4_IRQHandler(void)
 void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
-	espUart_rx_data();
+	uint32_t tmp_flag = 0;
+    uint32_t temp;
+    tmp_flag =  __HAL_UART_GET_FLAG(&huart2,UART_FLAG_IDLE);
+    if((tmp_flag != RESET))
+      {
+      __HAL_UART_CLEAR_IDLEFLAG(&huart2);
+      temp = huart2.Instance->SR;	// read as clear
+      temp = huart2.Instance->DR;
+      HAL_UART_DMAStop(&huart2);
+      temp  = hdma_usart2_rx.Instance->NDTR;
+      rx_len =  RX_BUFFER_SIZE - temp;
+      recv_end_flag = 1;
+      HAL_UART_IdleCpltCallback(&huart2);
+    }
   /* USER CODE END USART2_IRQn 0 */
   HAL_UART_IRQHandler(&huart2);
   /* USER CODE BEGIN USART2_IRQn 1 */

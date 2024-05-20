@@ -47,16 +47,8 @@ f407_template\tim.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\math.h
 f407_template\tim.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 f407_template\tim.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\string.h
 f407_template\tim.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
-f407_template\tim.o: ../Middlewares/BSP/HC_SR04.h
-f407_template\tim.o: ../Core/Inc/main.h
-f407_template\tim.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
-f407_template\tim.o: ../Core/Inc/usDelay.h
-f407_template\tim.o: ../Middlewares/BSP/wifi.h
-f407_template\tim.o: ../Middlewares/BSP/core_json.h
-f407_template\tim.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdbool.h
 f407_template\tim.o: ../Core/Inc/gpio.h
+f407_template\tim.o: ../Core/Inc/main.h
 f407_template\tim.o: ../Core/Inc/usart.h
 f407_template\tim.o: ../Middlewares/BSP/OLED.h
 f407_template\tim.o: ../Middlewares/BSP/OLED_Data.h
-f407_template\tim.o: ../Middlewares/BSP/mqtt.h
-f407_template\tim.o: ../Middlewares/BSP/wifi_test.h

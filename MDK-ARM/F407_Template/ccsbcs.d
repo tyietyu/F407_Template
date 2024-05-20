@@ -49,19 +49,11 @@ f407_template\ccsbcs.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\math.h
 f407_template\ccsbcs.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 f407_template\ccsbcs.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\string.h
 f407_template\ccsbcs.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
-f407_template\ccsbcs.o: ../Middlewares/BSP/HC_SR04.h
-f407_template\ccsbcs.o: ../Core/Inc/main.h
-f407_template\ccsbcs.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
-f407_template\ccsbcs.o: ../Core/Inc/usDelay.h
-f407_template\ccsbcs.o: ../Middlewares/BSP/wifi.h
-f407_template\ccsbcs.o: ../Middlewares/BSP/core_json.h
-f407_template\ccsbcs.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdbool.h
 f407_template\ccsbcs.o: ../Core/Inc/gpio.h
+f407_template\ccsbcs.o: ../Core/Inc/main.h
 f407_template\ccsbcs.o: ../Core/Inc/usart.h
 f407_template\ccsbcs.o: ../Middlewares/BSP/OLED.h
 f407_template\ccsbcs.o: ../Middlewares/BSP/OLED_Data.h
-f407_template\ccsbcs.o: ../Middlewares/BSP/mqtt.h
-f407_template\ccsbcs.o: ../Middlewares/BSP/wifi_test.h
 f407_template\ccsbcs.o: ../FATFS/Target/bsp_driver_sd.h
 f407_template\ccsbcs.o: ../FATFS/Target/fatfs_platform.h
 f407_template\ccsbcs.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
@@ -74,3 +66,4 @@ f407_template\ccsbcs.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS
 f407_template\ccsbcs.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
 f407_template\ccsbcs.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
 f407_template\ccsbcs.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+f407_template\ccsbcs.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h

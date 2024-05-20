@@ -313,7 +313,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>2</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -339,7 +339,7 @@
               <MiscControls>--no-multibyte-chars</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../FATFS/Target;../FATFS/App;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FatFs/src;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../USB_DEVICE/App;../USB_DEVICE/Target;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Middlewares/BSP</IncludePath>
+              <IncludePath>../Core/Inc;../FATFS/Target;../FATFS/App;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FatFs/src;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../USB_DEVICE/App;../USB_DEVICE/Target;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Middlewares/BSP;..\Middlewares\ESP8266Client;..\Middlewares\MQTTPacket</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -462,11 +462,6 @@
         <Group>
           <GroupName>Application/User/Core</GroupName>
           <Files>
-            <File>
-              <FileName>usDelay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\usDelay.c</FilePath>
-            </File>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
@@ -2907,21 +2902,6 @@
           <GroupName>Middlewares/BSP</GroupName>
           <Files>
             <File>
-              <FileName>HC_SR04.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Middlewares\BSP\HC_SR04.c</FilePath>
-            </File>
-            <File>
-              <FileName>DUOJI.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Middlewares\BSP\DUOJI.c</FilePath>
-            </File>
-            <File>
-              <FileName>mqtt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Middlewares\BSP\mqtt.c</FilePath>
-            </File>
-            <File>
               <FileName>OLED.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Middlewares\BSP\OLED.c</FilePath>
@@ -2932,14 +2912,84 @@
               <FilePath>..\Middlewares\BSP\OLED_Data.c</FilePath>
             </File>
             <File>
-              <FileName>wifi.c</FileName>
+              <FileName>fifo.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Middlewares\BSP\wifi.c</FilePath>
+              <FilePath>..\Middlewares\BSP\fifo.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Middlewares/ESP8266Client</GroupName>
+          <Files>
+            <File>
+              <FileName>ESP8266Client.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\ESP8266Client\ESP8266Client.c</FilePath>
             </File>
             <File>
-              <FileName>wifi_test.c</FileName>
+              <FileName>networkwrapper.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Middlewares\BSP\wifi_test.c</FilePath>
+              <FilePath>..\Middlewares\ESP8266Client\networkwrapper.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Middlewares/MQTTPacket</GroupName>
+          <Files>
+            <File>
+              <FileName>MQTTConnectClient.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\MQTTPacket\MQTTConnectClient.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTConnectServer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\MQTTPacket\MQTTConnectServer.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTDeserializePublish.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\MQTTPacket\MQTTDeserializePublish.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTFormat.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\MQTTPacket\MQTTFormat.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTPacket.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\MQTTPacket\MQTTPacket.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTSerializePublish.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\MQTTPacket\MQTTSerializePublish.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTSubscribeClient.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\MQTTPacket\MQTTSubscribeClient.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTSubscribeServer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\MQTTPacket\MQTTSubscribeServer.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTUnsubscribeClient.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\MQTTPacket\MQTTUnsubscribeClient.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTUnsubscribeServer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\MQTTPacket\MQTTUnsubscribeServer.c</FilePath>
+            </File>
+            <File>
+              <FileName>transport.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\MQTTPacket\transport.c</FilePath>
             </File>
           </Files>
         </Group>

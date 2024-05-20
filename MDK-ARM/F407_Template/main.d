@@ -46,19 +46,11 @@ f407_template\main.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\math.h
 f407_template\main.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 f407_template\main.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\string.h
 f407_template\main.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
-f407_template\main.o: ../Middlewares/BSP/HC_SR04.h
-f407_template\main.o: ../Core/Inc/main.h
-f407_template\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
-f407_template\main.o: ../Core/Inc/usDelay.h
-f407_template\main.o: ../Middlewares/BSP/wifi.h
-f407_template\main.o: ../Middlewares/BSP/core_json.h
-f407_template\main.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdbool.h
 f407_template\main.o: ../Core/Inc/gpio.h
+f407_template\main.o: ../Core/Inc/main.h
 f407_template\main.o: ../Core/Inc/usart.h
 f407_template\main.o: ../Middlewares/BSP/OLED.h
 f407_template\main.o: ../Middlewares/BSP/OLED_Data.h
-f407_template\main.o: ../Middlewares/BSP/mqtt.h
-f407_template\main.o: ../Middlewares/BSP/wifi_test.h
 f407_template\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
 f407_template\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 f407_template\main.o: ../Core/Inc/FreeRTOSConfig.h
@@ -69,6 +61,7 @@ f407_template\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/A
 f407_template\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
 f407_template\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
 f407_template\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+f407_template\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 f407_template\main.o: ../Core/Inc/adc.h
 f407_template\main.o: ../Core/Inc/dma.h
 f407_template\main.o: ../FATFS/App/fatfs.h
@@ -88,3 +81,4 @@ f407_template\main.o: ../USB_DEVICE/App/usb_device.h
 f407_template\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 f407_template\main.o: ../USB_DEVICE/Target/usbd_conf.h
 f407_template\main.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
+f407_template\main.o: ../Middlewares/BSP/fifo.h

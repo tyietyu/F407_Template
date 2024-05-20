@@ -251,7 +251,7 @@ void hcsr04Task(void *argument)
     /* Infinite loop */
     for (;;) {
         float distant = 0;
-        distant       = read_len();
+       // distant       = read_len();
         printf("radarDistant: %.f cm\r\n, ", distant);
         osDelay(200);
     }
