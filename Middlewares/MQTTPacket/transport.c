@@ -35,82 +35,80 @@ If you plan on writing one, take into account that the current implementation of
 MQTTPacket_read() has a function pointer for a function call to get the data to a buffer, but no provisions
 to know the caller or other indicator (the socket id): int (*getfn)(unsigned char*, int)
 */
-static transport_iofunctions_t *io = NULL;
-static unsigned char *from = NULL;		// to keep track of data sending
-static int howmany;				// ditto
 
+extern UART_HandleTypeDef huart2;
+static transport_handle_t transport[MAX_CONNECTIONS];
 
-void transport_sendPacketBuffernb_start(int sock, unsigned char* buf, int buflen)
+void transport_sendPacketBuffernb_start(int sock, unsigned char *buf, int buflen)
 {
-	from = buf;			// from[sock] or mystruct[sock].from
-	howmany = buflen;		// myhowmany[sock] or mystruct[sock].howmany
+    transport[sock].from    = buf;    // from[sock] or mystruct[sock].from
+    transport[sock].howmany = buflen; // myhowmany[sock] or mystruct[sock].howmany
 }
 
 int transport_sendPacketBuffernb(int sock)
 {
-transport_iofunctions_t *myio = io;	// io[sock] or mystruct[sock].io
-int len;
-
-	/* you should have called open() with a valid pointer to a valid struct and 
-	called sendPacketBuffernb_start with a valid buffer, before calling this */
-	//assert((myio != NULL) && (myio->send != NULL) && (from != NULL));
-	if((len = myio->send(from, howmany)) > 0){
-		from += len;
-		if((howmany -= len) <= 0){
-			return TRANSPORT_DONE;
-		}
-	} else if(len < 0){
-		return TRANSPORT_ERROR;
-	}
-	return TRANSPORT_AGAIN;
+    transport_iofunctions_t *myio = transport[sock].io; // io[sock] or mystruct[sock].io
+    int len;
+    /* you should have called open() with a valid pointer to a valid struct and
+    called sendPacketBuffernb_start with a valid buffer, before calling this */
+    // assert((myio != NULL) && (myio->send != NULL) && (from != NULL));
+    if ((len = myio->send(transport[sock].from, transport[sock].howmany)) > 0) {
+        transport[sock].from += len;
+        if ((transport[sock].howmany -= len) <= 0) {
+            return TRANSPORT_DONE;
+        }
+    } else if (len < 0) {
+        return TRANSPORT_ERROR;
+    }
+    return TRANSPORT_AGAIN;
 }
 
-int transport_sendPacketBuffer(int sock, unsigned char* buf, int buflen)
+int transport_sendPacketBuffer(int sock, unsigned char *buf, int buflen)
 {
-int rc;
+    int rc;
 
-	transport_sendPacketBuffernb_start(sock, buf, buflen);
-	while((rc=transport_sendPacketBuffernb(sock)) == TRANSPORT_AGAIN){
-		/* this is unlikely to loop forever unless there is a hardware problem */
-	}
-	if(rc == TRANSPORT_DONE){
-		return buflen;
-	}
-	return TRANSPORT_ERROR;
+    transport_sendPacketBuffernb_start(sock, buf, buflen);
+    while ((rc = transport_sendPacketBuffernb(sock)) == TRANSPORT_AGAIN) {
+        /* this is unlikely to loop forever unless there is a hardware problem */
+    }
+    if (rc == TRANSPORT_DONE) {
+        return buflen;
+    }
+    return TRANSPORT_ERROR;
 }
 
-
-int transport_getdata(unsigned char* buf, int count)
+int transport_getdata(unsigned char *buf, int count)
 {
-	// int rc;
-	//assert(0);		/* This function is NOT supported, it is just here to tease you */
-	// transport_sendPacketBuffernb_start(sock, buf, count);
-	// while((rc=transport_sendPacketBuffernb(sock)) == TRANSPORT_AGAIN){
-	// 	/* this is unlikely to loop forever unless there is a hardware problem */
-	// }
-	// if(rc == TRANSPORT_DONE){
-	// 	return count;
-	// }
-	return TRANSPORT_ERROR;	/* nah, it is here for similarity with other transport examples */
+//    int rc;
+//   // assert(0);		/* This function is NOT supported, it is just here to tease you */
+//    transport_sendPacketBuffernb_start(sock, buf, count);
+//    while((rc=transport_sendPacketBuffernb(sock)) == TRANSPORT_AGAIN){
+//    	/* this is unlikely to loop forever unless there is a hardware problem */
+//    }
+//    if(rc == TRANSPORT_DONE){
+//    	return count;
+//    }
+    return TRANSPORT_ERROR; /* nah, it is here for similarity with other transport examples */
 }
 
-int transport_getdatanb(void *sck, unsigned char* buf, int count)
+int transport_getdatanb(void *sck, unsigned char *buf, int count)
 {
-//int sock = *((int *)sck); 		/* sck: pointer to whatever the system may use to identify the transport */
-transport_iofunctions_t *myio = io;	// io[sock] or mystruct[sock].io
-int len;
-	
-	/* you should have called open() with a valid pointer to a valid struct before calling this */
-	//assert((myio != NULL) && (myio->recv != NULL));
-	/* this call will return immediately if no bytes, or return whatever outstanding bytes we have,
-	 upto count */
-	while((len = myio->recv(buf, count)) == 0);
-	if (len >0 )
-		return len;
-	if (len==-2)
-		return 0;
-	if(len == -1)
-		return TRANSPORT_ERROR;
+    int sock                      = *((int *)sck);      /* sck: pointer to whatever the system may use to identify the transport */
+    transport_iofunctions_t *myio = transport[sock].io; // io[sock] or mystruct[sock].io
+    int len;
+    if (myio != NULL && myio->recv != NULL) {
+        while ((len = myio->recv(buf, count)) == 0);
+        if (len > 0) {
+            return len;
+        }
+        if (len == -2) {
+            return 0;
+        }
+        if (len == -1) {
+            return TRANSPORT_ERROR;
+        }
+    }
+    return TRANSPORT_ERROR;
 }
 
 /**
@@ -118,17 +116,35 @@ return >=0 for a connection descriptor, <0 for an error code
 */
 int transport_open(transport_iofunctions_t *thisio)
 {
-int idx=0;	// for multiple connections, you might, basically turn myio into myio[MAX_CONNECTIONS],
+    int idx = 0; // 使用某种方式分配索引
 
-	//if((idx=assignidx()) >= MAX_CONNECTIONS)	// somehow assign an index,
-	//	return TRANSPORT_ERROR;
-	io = thisio;					// store myio[idx] = thisio, or mystruct[idx].io = thisio, 
-	return idx;					// and return the index used
+    for (idx = 0; idx < MAX_CONNECTIONS; idx++) {
+        if (transport[idx].io == NULL) {
+            transport[idx].io = thisio;
+            return idx;
+        }
+    }
+    return TRANSPORT_ERROR;
 }
 
 int transport_close(int sock)
 {
-int rc=TRANSPORT_DONE;
+    transport[sock].io = NULL;
+    return TRANSPORT_DONE;
+}
 
-	return rc;
+int uart_send(unsigned char *buf, unsigned int len)
+{
+    if (HAL_UART_Transmit_DMA(&huart2, buf, len) == HAL_OK) {
+        return len;
+    }
+    return -1;
+}
+
+int uart_recv(unsigned char *buf, unsigned int len)
+{
+    if (HAL_UART_Receive_DMA(&huart2, buf, len) == HAL_OK) {
+        return len;
+    }
+    return -1;
 }

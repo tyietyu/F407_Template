@@ -250,20 +250,7 @@ void USART1_IRQHandler(void)
 void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
-	uint32_t tmp_flag = 0;
-    uint32_t temp;
-    tmp_flag =  __HAL_UART_GET_FLAG(&huart2,UART_FLAG_IDLE);
-    if((tmp_flag != RESET))
-      {
-      __HAL_UART_CLEAR_IDLEFLAG(&huart2);
-      temp = huart2.Instance->SR;	// read as clear
-      temp = huart2.Instance->DR;
-      HAL_UART_DMAStop(&huart2);
-      temp  = hdma_usart2_rx.Instance->NDTR;
-      rx_len =  RX_BUFFER_SIZE - temp;
-      recv_end_flag = 1;
-      HAL_UART_IdleCpltCallback(&huart2);
-    }
+	ESP8266_IRQHandler();
   /* USER CODE END USART2_IRQn 0 */
   HAL_UART_IRQHandler(&huart2);
   /* USER CODE BEGIN USART2_IRQn 1 */

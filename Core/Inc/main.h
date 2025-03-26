@@ -76,6 +76,8 @@ void Error_Handler(void);
 #define WIFI_RX_GPIO_Port GPIOA
 #define LED0_Pin GPIO_PIN_2
 #define LED0_GPIO_Port GPIOB
+#define WIFI_RST_Pin GPIO_PIN_8
+#define WIFI_RST_GPIO_Port GPIOA
 #define SD_CARD_DET_Pin GPIO_PIN_3
 #define SD_CARD_DET_GPIO_Port GPIOD
 #define SCL_Pin GPIO_PIN_6
@@ -85,7 +87,7 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 #define RX_BUFFER_SIZE 256
-#define FIFO_BUFFER_SIZE 1024
+#define TX_BUFFER_SIZE 512
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

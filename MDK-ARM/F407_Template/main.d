@@ -81,4 +81,15 @@ f407_template\main.o: ../USB_DEVICE/App/usb_device.h
 f407_template\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 f407_template\main.o: ../USB_DEVICE/Target/usbd_conf.h
 f407_template\main.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
-f407_template\main.o: ../Middlewares/BSP/fifo.h
+f407_template\main.o: ../Middlewares/MQTTPacket/MQTTPacket.h
+f407_template\main.o: ../Middlewares/MQTTPacket/MQTTConnect.h
+f407_template\main.o: ../Middlewares/MQTTPacket/MQTTPublish.h
+f407_template\main.o: ../Middlewares/MQTTPacket/MQTTSubscribe.h
+f407_template\main.o: ../Middlewares/MQTTPacket/MQTTUnsubscribe.h
+f407_template\main.o: ../Middlewares/MQTTPacket/MQTTFormat.h
+f407_template\main.o: ../Middlewares/MQTTPacket/StackTrace.h
+f407_template\main.o: ../Middlewares/MQTTPacket/MQTTPacket.h
+f407_template\main.o: ../Middlewares/ESP8266Client/ESP8266Client.h
+f407_template\main.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdbool.h
+f407_template\main.o: ../Middlewares/MQTTPacket/transport.h
+f407_template\main.o: ../Middlewares/ESP8266Client/wifi_credentials.h

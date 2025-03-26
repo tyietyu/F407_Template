@@ -37,23 +37,28 @@
 
 extern  UART_HandleTypeDef huart2;
 
-// Type definitions.
-typedef int32_t ESP82_Result_t;
-#define ESP82_ERROR      (-1)
-#define ESP82_INPROGRESS (0)
-#define ESP82_SUCCESS    (1)
-#define ESP82_RECEIVE_NOTHING    (-2)
+#define ESP8266_EOK         0   /* 没有错误 */
+#define ESP8266_ERROR       1   /* 通用错误 */
+#define ESP8266_ETIMEOUT    2   /* 超时错误 */
+#define ESP8266_EINVAL      3   /* 参数错误 */
 
+
+void ESP8266_IRQHandler(void);
 // Prototypes.
 void ESP82_Init(void);
-ESP82_Result_t ESP82_CheckPresence(void);
-ESP82_Result_t ESP82_ConnectWifi(const bool resetToDefault, const char * ssid, const char * pass);
-ESP82_Result_t ESP82_IsConnectedWifi(void);
-ESP82_Result_t ESP82_StartTCP(const char * host, const uint16_t port, const uint16_t keepalive, const bool ssl);
-ESP82_Result_t ESP82_CloseTCP(void);
-ESP82_Result_t ESP82_Send(const char * const data, const uint8_t dataLength);
-ESP82_Result_t ESP82_Receive(char * const data, const uint8_t dataLengthMax);
-ESP82_Result_t ESP82_Delay(const uint16_t delay_ms);
+void ESP82_RecvReset(void);
+uint8_t ESP82AtTest(void);
+uint8_t ESP82_swRst(void);
+uint8_t ESP82_get_ip(void);
+uint8_t *ESP82_GetFrame(void);
+uint16_t ESP82_GetFrameLen(void);
+void ESP82_exitTransMode(void);
+uint8_t ESP82_enterTransMode(void);
+uint8_t ESP82_set_mode(uint8_t mode);
+uint8_t ESP82_ateConfig(uint8_t cfg);
+uint8_t ESP82_JoinAP(char *ssid,char *pwd);
+uint8_t ESP82_connect_tcp_server(char *ip, uint16_t port);
+uint8_t ESP82_sendCmd(char *cmd, char *ack, uint32_t timeout);
 
 void HAL_UART_IdleCpltCallback(UART_HandleTypeDef *huart);
 #endif

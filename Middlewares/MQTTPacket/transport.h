@@ -24,9 +24,17 @@ typedef struct {
 	int (*recv)(unsigned char *address, unsigned int maxbytes); 	///< pointer to function to receive upto 'maxbytes' bytes, returns the actual number of bytes copied
 } transport_iofunctions_t;
 
+typedef struct {
+	transport_iofunctions_t *io;
+	unsigned char *from;		// to keep track of data sending
+	int howmany;				// ditto
+} transport_handle_t;
+
+#define MAX_CONNECTIONS	1
 #define TRANSPORT_DONE	1
 #define TRANSPORT_AGAIN	0
 #define TRANSPORT_ERROR	-1
+
 /**
 @note Blocks until requested buflen is sent
 */
@@ -72,7 +80,8 @@ the AT+xSENDx / AT+xRECVx commands into the former sendPacketBuffer() and getdat
 */
 int transport_open(transport_iofunctions_t *thisio);
 int transport_close(int sock);
-
+int uart_send(unsigned char *buf, unsigned int len);
+int uart_recv(unsigned char *buf, unsigned int len);
 #endif
 
 

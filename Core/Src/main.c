@@ -1,20 +1,20 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2024 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2024 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -32,12 +32,23 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "fifo.h"
+#include "MQTTPacket.h"
+#include "ESP8266Client.h"
+#include "MQTTPacket.h"
+#include "transport.h"
+// #include "networkwrapper.h"
+// #include "fifo.h"
+#include "wifi_credentials.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-struct fifo rxFifo;
+//struct fifo rxFifo;
+transport_iofunctions_t uart2_io =
+{
+    .send = uart_send,
+    .recv = uart_recv
+};
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -48,17 +59,17 @@ struct fifo rxFifo;
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-int rx_len = 0;
-int recv_end_flag = 0;
-int MQTT_connected = 0;
-uint8_t rxBuffer[RX_BUFFER_SIZE] = { 0 };
+int rx_len                       = 0;
+int recv_end_flag                = 0;
+int MQTT_connected               = 0;
+uint8_t rxBuffer[RX_BUFFER_SIZE] = {0};
 uint8_t debugSentBuffer[RX_BUFFER_SIZE];
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t keyVal=0;
+uint8_t keyVal = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -70,7 +81,11 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void WIFI_test(void);
+long unsigned int network_gettime_ms(void)
+{
+    return (HAL_GetTick());
+}
 /* USER CODE END 0 */
 
 /**
@@ -79,6 +94,7 @@ void MX_FREERTOS_Init(void);
   */
 int main(void)
 {
+
     /* USER CODE BEGIN 1 */
 
     /* USER CODE END 1 */
@@ -111,34 +127,36 @@ int main(void)
     MX_USART2_UART_Init();
     MX_ADC1_Init();
     /* USER CODE BEGIN 2 */
-
-    fifo_alloc(&rxFifo, FIFO_BUFFER_SIZE);
+    //fifo_alloc(&rxFifo, FIFO_BUFFER_SIZE);
     HAL_UART_Receive_DMA(&huart2, rxBuffer, RX_BUFFER_SIZE);
     __HAL_UART_ENABLE_IT(&huart2, UART_IT_IDLE);
     __HAL_UART_ENABLE_IT(&huart2, UART_IT_RXNE);
-
+    transport_open(&uart2_io);
 
 #if USER_FREE_RTOS
     /* USER CODE END 2 */
 
     /* Init scheduler */
-    osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
+    osKernelInitialize();
+
+    /* Call init function for freertos objects (in cmsis_os2.c) */
     MX_FREERTOS_Init();
 
     /* Start scheduler */
     osKernelStart();
 
     /* We should never get here as control is now taken by the scheduler */
+
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
 #endif
+    WIFI_test();
 
     while (1)
     {
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
-
     }
 
     /* USER CODE END 3 */
@@ -192,7 +210,66 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void WIFI_test(void)
+{
+    uint8_t res;
+    uint8_t res1;
+    uint8_t res2;
+    uint8_t res3;
+    //初始化ESP8266
+    ESP82_Init();
+    //等待1s
+    HAL_Delay(1000);
+    ESP82AtTest();
 
+    if (res==0)
+    {
+        printf("AT test success\r\n");
+    }
+    else
+    {
+        printf("AT test fail\r\n");
+    }
+
+    //设置模式
+    res1 = ESP82_set_mode(1);
+
+    if (res1==0)
+    {
+        printf("set mode success\r\n");
+    }
+    else
+    {
+        printf("set mode fail\r\n");
+    }
+
+    HAL_Delay(3000);
+    //连接wifi�?
+    ESP82_JoinAP(WIFI_AP_SSID, WIFI_AP_PASS);
+
+    if (res2==0)
+    {
+        printf("wifi connect success\r\n");
+    }
+    else
+    {
+        printf("wifi connect fail\r\n");
+    }
+
+    //等待1s
+    HAL_Delay(3000);
+    //连接tcp服务�?
+    ESP82_connect_tcp_server(SERVER_ADDR, 1883);
+
+    if (res3==0)
+    {
+        printf("tcp connect success\r\n");
+    }
+    else
+    {
+        printf("tcp connect fail\r\n");
+    }
+}
 /* USER CODE END 4 */
 
 /**
@@ -216,7 +293,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     /* USER CODE BEGIN Callback 1 */
     if (htim->Instance == TIM2)
     {
-        //updateDeviceInfo();
+        // updateDeviceInfo();
 
         if (MQTT_connected)
         {
@@ -224,7 +301,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         }
         else
         {
-            HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin,GPIO_PIN_SET);
+            HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_SET);
         }
     }
 

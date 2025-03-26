@@ -72,7 +72,6 @@
 "f407_template\oled_data.o"
 "f407_template\fifo.o"
 "f407_template\esp8266client.o"
-"f407_template\networkwrapper.o"
 "f407_template\mqttconnectclient.o"
 "f407_template\mqttconnectserver.o"
 "f407_template\mqttdeserializepublish.o"

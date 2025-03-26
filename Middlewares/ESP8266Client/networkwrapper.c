@@ -30,29 +30,34 @@
 #include "networkwrapper.h"
 #include "ESP8266Client.h"
 #include <string.h>
+#include "wifi_credentials.h" 
 
 // Variables.
-static char network_host[32] = "10.21.100.103";///< HostName i.e. "test.mosquitto.org"
-static unsigned short int network_port = 1883;///< Remote port number.
-static unsigned short int network_keepalive = 20;///< Default keepalive time in seconds.
-static char network_ssl = false;///< SSL is disabled by default.
-static int network_send_state = 0;///< Internal state of send.
-static int network_recv_state = 0;///< Internal state of recv.
+static char network_host[64]                = "a1TGt6tIcAE.iot-as-mqtt.cn-shanghai.aliyuncs.com"; ///< HostName i.e. "test.mosquitto.org"
+static unsigned short int network_port      = 1883;                                               ///< Remote port number.
+static unsigned short int network_keepalive = 20;                                                 ///< Default keepalive time in seconds.
+static char network_ssl                     = false;                                              ///< SSL is disabled by default.
+static int network_send_state               = 0;                                                  ///< Internal state of send.
+static int network_recv_state               = 0;                                                  ///< Internal state of recv.
 
 // Global time provider.
-extern long unsigned int network_gettime_ms(void);///< Returns 32bit ms time value.
+extern long unsigned int network_gettime_ms(void); ///< Returns 32bit ms time value.
 
-void network_init(void) { }
+void network_init(void)
+{
+}
 
-void network_close(void) { }
+void network_close(void)
+{
+}
 
-int network_connect(const char * host, const unsigned short int port, const unsigned short int keepalive, const char ssl)
+int network_connect(const char *host, const unsigned short int port, const unsigned short int keepalive, const char ssl)
 {
     // Get connection info.
     strcpy(network_host, host);
-    network_port = port;
+    network_port      = port;
     network_keepalive = keepalive;
-    network_ssl = ssl;
+    network_ssl       = ssl;
 
     // Reset the internal states.
     network_send_state = 0;
@@ -67,8 +72,7 @@ int network_send(unsigned char *address, unsigned int bytes)
     // State Machine.
     ESP82_Result_t espResult = ESP82_SUCCESS;
 
-    switch (network_send_state)
-    {
+    switch (network_send_state) {
         case 0:
             // Init ESP8266 driver.
             ESP82_Init();
@@ -79,12 +83,10 @@ int network_send(unsigned char *address, unsigned int bytes)
             break;
 
         case 1:
-            // Connect to wifi (restore to default first).
-#include "wifi_credentials.h"// Has the below 2 definitions only.
+            // Connect to wifi (restore to default first)
             espResult = ESP82_ConnectWifi(true, WIFI_AP_SSID, WIFI_AP_PASS);
 
-            if (espResult == ESP82_SUCCESS)
-            {
+            if (espResult == ESP82_SUCCESS) {
                 // To the next state.
                 network_send_state++;
             }
@@ -95,8 +97,7 @@ int network_send(unsigned char *address, unsigned int bytes)
             // Wait 1sec.
             espResult = ESP82_Delay(1000);
 
-            if (espResult == ESP82_SUCCESS)
-            {
+            if (espResult == ESP82_SUCCESS) {
                 // To the next state.
                 network_send_state++;
             }
@@ -107,8 +108,7 @@ int network_send(unsigned char *address, unsigned int bytes)
             // Check the wifi connection status.
             espResult = ESP82_IsConnectedWifi();
 
-            if (espResult == ESP82_SUCCESS)
-            {
+            if (espResult == ESP82_SUCCESS) {
                 // To the next state.
                 network_send_state++;
             }
@@ -119,8 +119,7 @@ int network_send(unsigned char *address, unsigned int bytes)
             // Start TCP connection.
             espResult = ESP82_StartTCP(network_host, network_port, network_keepalive, network_ssl);
 
-            if (espResult == ESP82_SUCCESS)
-            {
+            if (espResult == ESP82_SUCCESS) {
                 // To the next state.
                 network_send_state++;
             }
@@ -131,8 +130,7 @@ int network_send(unsigned char *address, unsigned int bytes)
             // Send the data.
             espResult = ESP82_Send(address, bytes);
 
-            if (espResult == ESP82_SUCCESS)
-            {
+            if (espResult == ESP82_SUCCESS) {
                 // Return the actual number of bytes. Stay in this state unless error occurs.
                 return bytes;
             }
@@ -145,15 +143,11 @@ int network_send(unsigned char *address, unsigned int bytes)
     }
 
     // Fall-back on error.
-    if (espResult == ESP82_ERROR)
-    {
-        if (network_send_state < 4)
-        {
+    if (espResult == ESP82_ERROR) {
+        if (network_send_state < 4) {
             // If error occured before wifi connection, start over.
             network_send_state = 0;
-        }
-        else
-        {
+        } else {
             // Check wifi connection and try to send again.
             network_send_state = 3;
         }
@@ -169,22 +163,20 @@ int network_send(unsigned char *address, unsigned int bytes)
 int network_recv(unsigned char *address, unsigned int maxbytes)
 {
     static char receiveBuffer[128];
-    static int receiveBufferBack = 0;
+    static int receiveBufferBack  = 0;
     static int receiveBufferFront = 0;
     int actualLength;
 
     // State Machine.
     ESP82_Result_t espResult;
 
-    switch (network_recv_state)
-    {
+    switch (network_recv_state) {
         case 0:
             espResult = ESP82_Receive(receiveBuffer, 128);
 
-            if (espResult > 0)
-            {
+            if (espResult > 0) {
                 // Set the buffer pointers.
-                receiveBufferBack = espResult;
+                receiveBufferBack  = espResult;
                 receiveBufferFront = 0;
 
                 // To the next state.
@@ -196,13 +188,11 @@ int network_recv(unsigned char *address, unsigned int maxbytes)
         case 1:
 
             // Extract to the out buffer.
-            if (receiveBufferFront < receiveBufferBack)
-            {
+            if (receiveBufferFront < receiveBufferBack) {
                 // Get actual length.
                 actualLength = (receiveBufferBack - receiveBufferFront);
 
-                if (actualLength > maxbytes)
-                {
+                if (actualLength > maxbytes) {
                     actualLength = maxbytes;
                 }
 
@@ -211,8 +201,7 @@ int network_recv(unsigned char *address, unsigned int maxbytes)
                 receiveBufferFront += actualLength;
 
                 // Buffer is empty.
-                if (receiveBufferBack == receiveBufferFront)
-                {
+                if (receiveBufferBack == receiveBufferFront) {
                     network_recv_state = 0;
                 }
 
@@ -228,8 +217,7 @@ int network_recv(unsigned char *address, unsigned int maxbytes)
     }
 
     // Fall-back on error.
-    if (espResult == ESP82_ERROR)
-    {
+    if (espResult == ESP82_ERROR) {
         // Reset the state machine.
         network_recv_state = 0;
 
@@ -238,14 +226,12 @@ int network_recv(unsigned char *address, unsigned int maxbytes)
     }
 
     // Recv nothing.
-    if (espResult == ESP82_RECEIVE_NOTHING)
-    {
+    if (espResult == ESP82_RECEIVE_NOTHING) {
         // Reset the state machine.
         network_recv_state = 0;
 
         return -2;
     }
-
 
     // In progress.
     return 0;

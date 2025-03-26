@@ -253,7 +253,13 @@
             "name": "BSP",
             "files": [
               {
-                "path": "Middlewares/BSP/HC_SR04.c"
+                "path": "Middlewares/BSP/OLED.c"
+              },
+              {
+                "path": "Middlewares/BSP/fifo.c"
+              },
+              {
+                "path": "Middlewares/BSP/OLEDData.c"
               }
             ],
             "folders": []
@@ -501,7 +507,9 @@
           "Middlewares/BSP",
           ".cmsis/include",
           "MDK-ARM/RTE/_F407_Template",
-          ".eide/deps"
+          ".eide/deps",
+          "Middlewares/ESP8266Client",
+          "Middlewares/MQTTPacket"
         ],
         "libList": [],
         "sourceDirList": [],
