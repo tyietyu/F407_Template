@@ -49,8 +49,8 @@ f407_template\stm32f4xx_it.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
 f407_template\stm32f4xx_it.o: ../Core/Inc/gpio.h
 f407_template\stm32f4xx_it.o: ../Core/Inc/main.h
 f407_template\stm32f4xx_it.o: ../Core/Inc/usart.h
-f407_template\stm32f4xx_it.o: ../Middlewares/BSP/OLED.h
-f407_template\stm32f4xx_it.o: ../Middlewares/BSP/OLED_Data.h
+f407_template\stm32f4xx_it.o: ..\Middlewares\BSP_OLED\OLED.h
+f407_template\stm32f4xx_it.o: ..\Middlewares\BSP_OLED\OLED_Data.h
 f407_template\stm32f4xx_it.o: ../Core/Inc/stm32f4xx_it.h
 f407_template\stm32f4xx_it.o: ../Middlewares/ESP8266Client/ESP8266Client.h
 f407_template\stm32f4xx_it.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdbool.h

@@ -50,5 +50,5 @@ f407_template\tim.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
 f407_template\tim.o: ../Core/Inc/gpio.h
 f407_template\tim.o: ../Core/Inc/main.h
 f407_template\tim.o: ../Core/Inc/usart.h
-f407_template\tim.o: ../Middlewares/BSP/OLED.h
-f407_template\tim.o: ../Middlewares/BSP/OLED_Data.h
+f407_template\tim.o: ..\Middlewares\BSP_OLED\OLED.h
+f407_template\tim.o: ..\Middlewares\BSP_OLED\OLED_Data.h

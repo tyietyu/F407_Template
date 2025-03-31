@@ -54,7 +54,7 @@ transport_iofunctions_t uart2_io =
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define USER_FREE_RTOS 0
-
+#define OTA_APP1_ADDR       0x08008000        //A区固件存放起始地址
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -96,7 +96,8 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+  SCB->VTOR = OTA_APP1_ADDR;
+  __enable_irq();
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -120,18 +121,19 @@ int main(void)
   MX_DMA_Init();
   MX_RTC_Init();
   MX_TIM2_Init();
-  MX_SDIO_SD_Init();
-  MX_FATFS_Init();
+  // MX_SDIO_SD_Init();
+  // MX_FATFS_Init();
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
+  printf("jump APP success\r\n");
     //fifo_alloc(&rxFifo, FIFO_BUFFER_SIZE);
     HAL_UART_Receive_DMA(&huart2, rxBuffer, RX_BUFFER_SIZE);
     __HAL_UART_ENABLE_IT(&huart2, UART_IT_IDLE);
     __HAL_UART_ENABLE_IT(&huart2, UART_IT_RXNE);
-    transport_open(&uart2_io);
+    // transport_open(&uart2_io);
 
 #if USER_FREE_RTOS
   /* USER CODE END 2 */
@@ -150,13 +152,15 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 #endif
-    WIFI_test();
+    // WIFI_test();
 
     while (1)
     {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    printf("This is a first APP\r\n");
+    HAL_Delay(1000);
     }
 
   /* USER CODE END 3 */

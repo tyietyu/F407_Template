@@ -1,6 +1,6 @@
-f407_template\oled.o: ..\Middlewares\BSP\OLED.c
-f407_template\oled.o: ..\Middlewares\BSP\OLED.h
-f407_template\oled.o: ..\Middlewares\BSP\OLED_Data.h
+f407_template\oled.o: ..\Middlewares\BSP_OLED\OLED.c
+f407_template\oled.o: ..\Middlewares\BSP_OLED\OLED.h
+f407_template\oled.o: ..\Middlewares\BSP_OLED\OLED_Data.h
 f407_template\oled.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdint.h
 f407_template\oled.o: ../Core/Inc/main.h
 f407_template\oled.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
@@ -51,4 +51,4 @@ f407_template\oled.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
 f407_template\oled.o: ../Core/Inc/gpio.h
 f407_template\oled.o: ../Core/Inc/main.h
 f407_template\oled.o: ../Core/Inc/usart.h
-f407_template\oled.o: ../Middlewares/BSP/OLED.h
+f407_template\oled.o: ..\Middlewares\BSP_OLED\OLED.h

@@ -52,5 +52,5 @@ f407_template\transport.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
 f407_template\transport.o: ../Core/Inc/gpio.h
 f407_template\transport.o: ../Core/Inc/main.h
 f407_template\transport.o: ../Core/Inc/usart.h
-f407_template\transport.o: ../Middlewares/BSP/OLED.h
-f407_template\transport.o: ../Middlewares/BSP/OLED_Data.h
+f407_template\transport.o: ..\Middlewares\BSP_OLED\OLED.h
+f407_template\transport.o: ..\Middlewares\BSP_OLED\OLED_Data.h

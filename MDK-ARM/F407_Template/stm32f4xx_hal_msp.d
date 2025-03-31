@@ -49,5 +49,5 @@ f407_template\stm32f4xx_hal_msp.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stda
 f407_template\stm32f4xx_hal_msp.o: ../Core/Inc/gpio.h
 f407_template\stm32f4xx_hal_msp.o: ../Core/Inc/main.h
 f407_template\stm32f4xx_hal_msp.o: ../Core/Inc/usart.h
-f407_template\stm32f4xx_hal_msp.o: ../Middlewares/BSP/OLED.h
-f407_template\stm32f4xx_hal_msp.o: ../Middlewares/BSP/OLED_Data.h
+f407_template\stm32f4xx_hal_msp.o: ..\Middlewares\BSP_OLED\OLED.h
+f407_template\stm32f4xx_hal_msp.o: ..\Middlewares\BSP_OLED\OLED_Data.h

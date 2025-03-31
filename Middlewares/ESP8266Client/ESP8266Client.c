@@ -6,7 +6,7 @@
 #include "ESP8266Client.h"
 #include <string.h>
 #include <assert.h>
-#include "fifo.h"
+//#include "fifo.h"
 #include "main.h"
 
 #define ESP8266_EOK      0 /* 没有错误 */
