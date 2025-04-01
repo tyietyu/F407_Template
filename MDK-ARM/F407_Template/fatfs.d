@@ -53,8 +53,8 @@ f407_template\fatfs.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
 f407_template\fatfs.o: ../Core/Inc/gpio.h
 f407_template\fatfs.o: ../Core/Inc/main.h
 f407_template\fatfs.o: ../Core/Inc/usart.h
-f407_template\fatfs.o: ..\Middlewares\BSP_OLED\OLED.h
-f407_template\fatfs.o: ..\Middlewares\BSP_OLED\OLED_Data.h
+f407_template\fatfs.o: ../Middlewares/BSP_OLED/OLED.h
+f407_template\fatfs.o: ../Middlewares/BSP_OLED/OLED_Data.h
 f407_template\fatfs.o: ../FATFS/Target/bsp_driver_sd.h
 f407_template\fatfs.o: ../FATFS/Target/fatfs_platform.h
 f407_template\fatfs.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h

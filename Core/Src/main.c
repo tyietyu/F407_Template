@@ -55,6 +55,7 @@ transport_iofunctions_t uart2_io =
 /* USER CODE BEGIN PD */
 #define USER_FREE_RTOS 0
 #define OTA_APP1_ADDR       0x08008000        //A区固件存放起始地址
+#define VECT_TAB_OFFSET     0x8000
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -97,22 +98,22 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
   SCB->VTOR = OTA_APP1_ADDR;
-  __enable_irq();
   /* USER CODE END 1 */
-
+  
   /* MCU Configuration--------------------------------------------------------*/
-
+  
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
-
+  
   /* USER CODE BEGIN Init */
-
+  
   /* USER CODE END Init */
-
+  
   /* Configure the system clock */
   SystemClock_Config();
-
+  
   /* USER CODE BEGIN SysInit */
+  __enable_irq();
 
   /* USER CODE END SysInit */
 
@@ -121,8 +122,8 @@ int main(void)
   MX_DMA_Init();
   MX_RTC_Init();
   MX_TIM2_Init();
-  // MX_SDIO_SD_Init();
-  // MX_FATFS_Init();
+  MX_SDIO_SD_Init();
+  MX_FATFS_Init();
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();

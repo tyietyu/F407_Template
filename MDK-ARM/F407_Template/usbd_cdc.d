@@ -54,8 +54,8 @@ f407_template\usbd_cdc.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
 f407_template\usbd_cdc.o: ../Core/Inc/gpio.h
 f407_template\usbd_cdc.o: ../Core/Inc/main.h
 f407_template\usbd_cdc.o: ../Core/Inc/usart.h
-f407_template\usbd_cdc.o: ..\Middlewares\BSP_OLED\OLED.h
-f407_template\usbd_cdc.o: ..\Middlewares\BSP_OLED\OLED_Data.h
+f407_template\usbd_cdc.o: ../Middlewares/BSP_OLED/OLED.h
+f407_template\usbd_cdc.o: ../Middlewares/BSP_OLED/OLED_Data.h
 f407_template\usbd_cdc.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
 f407_template\usbd_cdc.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 f407_template\usbd_cdc.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
